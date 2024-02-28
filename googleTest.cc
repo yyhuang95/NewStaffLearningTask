@@ -1,7 +1,6 @@
 #include "arm64asm.h"
 #include <cstdint>
 #include <stdlib.h>
-#include <stdio.h>
 #include <gtest/gtest.h>
 
 // Demonstrate some basic assertions.
@@ -69,6 +68,16 @@ void QuickSort(int32_t *array, int begin, int end) {
     QuickSort(array, begin, pivot - 1);
     QuickSort(array, pivot + 1, end);
 }
+
+
+TEST(myGetSum, BasicAssertions) {
+    EXPECT_EQ(myGetSum(0), 0);
+    EXPECT_EQ(myGetSum(10), 55);
+    EXPECT_EQ(myGetSum(256), 32896);
+    EXPECT_EQ(myGetSum(16384), 134225920);
+    EXPECT_EQ(myGetSum(4294967295), 9223372034707292160);
+}
+
 
 
 TEST(myQuickSort, BasicAssertions) {
