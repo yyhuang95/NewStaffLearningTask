@@ -58,17 +58,6 @@ bool AssertSort(int32_t *array, int counts) {
     return true;
 }
 
-void QuickSort(int32_t *array, int begin, int end) {
-    if (begin >= end) {
-        return;
-    }
-    int32_t pivot = partition(array, begin, end);
-    printf("pivot=%d,\t", pivot);
-    PrintArray2(array, begin, end);
-    QuickSort(array, begin, pivot - 1);
-    QuickSort(array, pivot + 1, end);
-}
-
 
 TEST(myGetSum, BasicAssertions) {
     EXPECT_EQ(myGetSum(0), 0);
