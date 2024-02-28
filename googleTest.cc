@@ -1,39 +1,36 @@
 #include "arm64asm.h"
 #include <cstdint>
 #include <stdlib.h>
+#include <stdio.h>
 #include <gtest/gtest.h>
 
-// // Demonstrate some basic assertions.
-// TEST(myAbs, BasicAssertions) {
-//   // Expect two strings not to be equal.
+// Demonstrate some basic assertions.
+TEST(myAbs, BasicAssertions) {
+  EXPECT_EQ(myAbs(-8), 8);
+  EXPECT_EQ(myAbs(-4294967296), 4294967296);
+  EXPECT_EQ(myAbs(8), 8);
+  EXPECT_EQ(myAbs(0), 0);
+  EXPECT_EQ(myAbs(4294967296), 4294967296);
+}
 
-//   EXPECT_EQ(myAbs(-8), 8);
-//   EXPECT_EQ(myAbs(-4294967296), 4294967296);
-//   EXPECT_EQ(myAbs(8), 8);
-//   // Expect equality.
-//   EXPECT_EQ(myAbs(0), 0);
-//   EXPECT_EQ(myAbs(4294967296), 4294967296);
-// }
+bool AssertMemset(void *p, int count, uint8_t pattern) {
+    uint8_t *buf = (uint8_t*)p;
+    for (int i = 0; i < count; i ++) {
+        if (buf[i] != pattern) {
+            return false;
+        }
+    }
+    return true;
+}
 
-// bool AssertMemset(void *p, int count, 
-// uint8_t pattern) {
-//     uint8_t *buf = (uint8_t*)p;
-//     for (int i = 0; i < count; i ++) {
-//         if (buf[i] != pattern) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-// TEST(myMemset, BasicAssertions) {
-//     void *buffer = malloc(1024*1024*32);
-//     EXPECT_EQ(myMemset(buffer, 8, 0), 8);
-//     EXPECT_PRED3(AssertMemset, buffer, 8, 0);
-//     EXPECT_EQ(myMemset(buffer, 1024*1024*32, 0), 1024*1024*32);
-//     EXPECT_PRED3(AssertMemset, buffer, 1024*1024*32, 0);
-//     free(buffer);
-// }
+TEST(myMemset, BasicAssertions) {
+    void *buffer = malloc(1024*1024*32);
+    EXPECT_EQ(myMemset(buffer, 8, 0), 8);
+    EXPECT_PRED3(AssertMemset, buffer, 8, 0);
+    EXPECT_EQ(myMemset(buffer, 1024*1024*32, 0), 1024*1024*32);
+    EXPECT_PRED3(AssertMemset, buffer, 1024*1024*32, 0);
+    free(buffer);
+}
 
 void PrintArray(int32_t *array, int counts) {
     for (int i = 0; i < counts; i ++) {
@@ -72,16 +69,6 @@ void QuickSort(int32_t *array, int begin, int end) {
     QuickSort(array, begin, pivot - 1);
     QuickSort(array, pivot + 1, end);
 }
-
-
-// TEST(myGetSum, BasicAssertions) {
-//     EXPECT_EQ(myGetSum(0), 0);
-//     EXPECT_EQ(myGetSum(10), 55);
-//     EXPECT_EQ(myGetSum(256), 32896);
-//     EXPECT_EQ(myGetSum(16384), 134225920);
-//     EXPECT_EQ(myGetSum(4294967295), 9223372034707292160);
-// }
-
 
 
 TEST(myQuickSort, BasicAssertions) {
